@@ -145,8 +145,11 @@ function matchesWatchOptions(message, options) {
 }
 
 function createNDEFError(type) {
-  return { error: type ?
-      new device.mojom.NDEFError({ errorType: type }) : null };
+  return {
+    error: type ?
+        new device.mojom.NDEFError({errorType: type, errorMessage: ''}) :
+        null
+  };
 }
 
 var WebNFCTest = (() => {
