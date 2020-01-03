@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="/resources/testharness.js"></script>
+  <script src="/resources/testharnessreport.js"></script>
+  <script src="support/helper.sub.js"></script>
+</head>
+<body>
+<script>
+const testCases = [
+  [ "script", "src" ],
+  [ "div", "innerHTML" ],
+  [ "script", "text" ],
+];
+
+trustedTypes.createPolicy("default", {});
+
+testCases.forEach(c => {
+  const name = `${c[0]}.${c[1]} `;
+  test(t => {
+    const element = document.createElement(c[0]);
+    // assert_throws(TypeError(), _ => element[c[1]] = "abc");
+    assert_equals(element[c[1]], "");
+  }, name + "default");
+});
+
+// Trigger the exit condition in the "Count" promise test above.
+try { document.createElement("script").text = "done"; } catch (e) {}
+</script>
+</body>
