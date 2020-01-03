@@ -224,4 +224,12 @@
       p.createURL(INPUTS.URL);
     });
   }, "createScriptURL defined - calling undefined callbacks throws");
+
+  test(t => {
+    let p = window.trustedTypes.createPolicy('TestPolicyScriptURL10', { createHTML: createHTMLJSWithThreeArguments, createScript: createScriptJSWithThreeArguments, createScriptURL: createScriptURLJSWithThreeArguments });
+    p.createHTML("a", "b", "c");
+    assert_equals("abc", p.createHTML("a", "b", "c").toString());
+    assert_equals("abc", p.createScript("a", "b", "c").toString());
+    assert_equals("abc", p.createScriptURL("a", "b", "c").toString());
+  }, "Arbitrary number of arguments");
 </script>
